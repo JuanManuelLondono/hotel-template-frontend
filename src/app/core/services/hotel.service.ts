@@ -38,4 +38,11 @@ export class HotelService {
   deactivate(id: number): Observable<ApiResponse<void>> {
     return this.http.delete<ApiResponse<void>>(`${this.API}/${id}`);
   }
+
+  updateCoverImage(id: number, imageUrl: string): Observable<ApiResponse<Hotel>> {
+  return this.http.patch<ApiResponse<Hotel>>(
+    `${this.API}/${id}/cover-image?imageUrl=${encodeURIComponent(imageUrl)}`,
+    {}
+  );
+}
 }

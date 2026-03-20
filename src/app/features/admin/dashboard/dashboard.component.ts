@@ -63,10 +63,10 @@ export class DashboardComponent implements OnInit {
   private hotelService = inject(HotelService);
 
   stats = signal([
-    { label: 'Hoteles activos',    value: '—', icon: '🏨' },
-    { label: 'Reservas totales',   value: '—', icon: '📋' },
-    { label: 'Huéspedes',          value: '—', icon: '👤' },
-    { label: 'Reseñas',            value: '—', icon: '⭐' },
+    { label: 'Hoteles activos', value: '—', icon: '🏨' },
+    { label: 'Reservas totales', value: '—', icon: '📋' },
+    { label: 'Huéspedes', value: '—', icon: '👤' },
+    { label: 'Reseñas', value: '—', icon: '⭐' },
   ]);
 
   actions = [
@@ -93,6 +93,12 @@ export class DashboardComponent implements OnInit {
       icon: '🛏',
       label: 'Habitaciones',
       description: 'Gestionar tipos de habitación'
+    },
+    {
+      route: '/admin/gallery',
+      icon: '🖼',
+      label: 'Galería',
+      description: 'Gestionar imágenes del hotel'
     },
   ];
 

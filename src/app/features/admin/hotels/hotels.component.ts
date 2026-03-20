@@ -6,11 +6,14 @@ import { HotelService } from '../../../core/services/hotel.service';
 import { ToastService } from '../../../shared/components/toast/toast.service';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { HotelSummary } from '../../../core/models/hotel.model';
+import { ImageUploadComponent } from '../../../shared/components/image-upload/image-upload.component';
+import { GalleryService } from '../../../core/services/gallery.service';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-admin-hotels',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, LoadingSpinnerComponent],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, LoadingSpinnerComponent, ImageUploadComponent],
   template: `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
@@ -254,6 +257,19 @@ import { HotelSummary } from '../../../core/models/hotel.model';
                             text-sm outline-none focus:border-primary-500"/>
             </div>
 
+            <!-- Imagen de portada -->
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                Imagen de portada
+              </label>
+              <app-image-upload
+                #imageUpload
+                label="Imagen de portada del hotel"
+                [currentImageUrl]="coverImagePreview()"
+                (fileSelected)="onCoverImageSelected($event)"
+                (imageCleared)="coverImagePreview.set('')" />
+            </div>
+
             <!-- Botones -->
             <div class="sm:col-span-2 flex gap-3 pt-2">
               <button type="button" (click)="closeForm()"
@@ -279,27 +295,31 @@ import { HotelSummary } from '../../../core/models/hotel.model';
 })
 export class HotelsComponent implements OnInit {
   private hotelService = inject(HotelService);
-  private toast        = inject(ToastService);
-  private fb           = inject(FormBuilder);
+  private toast = inject(ToastService);
+  private fb = inject(FormBuilder);
 
-  hotels       = signal<HotelSummary[]>([]);
-  loading      = signal(true);
-  showForm     = signal(false);
-  submitting   = signal(false);
+  private galleryService = inject(GalleryService);
+  coverImageFile = signal<File | null>(null);
+  coverImagePreview = signal<string>('');
+
+  hotels = signal<HotelSummary[]>([]);
+  loading = signal(true);
+  showForm = signal(false);
+  submitting = signal(false);
   editingHotel = signal<HotelSummary | null>(null);
 
   hotelForm = this.fb.group({
-    name:               ['', Validators.required],
-    description:        ['', Validators.required],
-    address:            ['', Validators.required],
-    city:               ['', Validators.required],
-    country:            ['', Validators.required],
-    latitude:           [null as number | null, Validators.required],
-    longitude:          [null as number | null, Validators.required],
-    phone:              [''],
-    email:              ['', Validators.email],
-    checkInTime:        [''],
-    checkOutTime:       [''],
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+    address: ['', Validators.required],
+    city: ['', Validators.required],
+    country: ['', Validators.required],
+    latitude: [null as number | null, Validators.required],
+    longitude: [null as number | null, Validators.required],
+    phone: [''],
+    email: ['', Validators.email],
+    checkInTime: [''],
+    checkOutTime: [''],
     cancellationPolicy: [''],
   });
 
@@ -337,6 +357,8 @@ export class HotelsComponent implements OnInit {
     this.showForm.set(false);
     this.editingHotel.set(null);
     this.hotelForm.reset();
+    this.coverImageFile.set(null);
+    this.coverImagePreview.set('');
   }
 
   deleteHotel(hotel: HotelSummary) {
@@ -364,16 +386,60 @@ export class HotelsComponent implements OnInit {
       : this.hotelService.create(data);
 
     request.subscribe({
-      next: () => {
-        this.toast.success(editing ? 'Hotel actualizado' : 'Hotel creado');
-        this.closeForm();
-        this.loadHotels();
-        this.submitting.set(false);
+      next: (res) => {
+        const hotelId = res.data.id;
+
+        if (this.coverImageFile()) {
+          const formData = new FormData();
+          formData.append('file', this.coverImageFile()!);
+          formData.append('altText', `Portada ${res.data.name}`);
+          formData.append('category', 'EXTERIOR');
+
+          this.galleryService.upload(hotelId, formData).subscribe({
+            next: (galleryRes) => {
+              // Actualizar coverImageUrl con la URL de Cloudinary
+              const imageUrl = galleryRes.data.imageUrl;
+              this.hotelService.updateCoverImage(hotelId, imageUrl).subscribe({
+                next: () => {
+                  this.toast.success(editing ? 'Hotel actualizado' : 'Hotel creado');
+                  this.closeForm();
+                  this.loadHotels();
+                  this.submitting.set(false);
+                },
+                error: () => {
+                  this.toast.warning('Hotel guardado pero error al actualizar portada');
+                  this.closeForm();
+                  this.loadHotels();
+                  this.submitting.set(false);
+                }
+              });
+            },
+            error: () => {
+              this.toast.warning('Hotel guardado pero hubo un error con la imagen');
+              this.closeForm();
+              this.loadHotels();
+              this.submitting.set(false);
+            }
+          });
+        } else {
+          this.toast.success(editing ? 'Hotel actualizado' : 'Hotel creado');
+          this.closeForm();
+          this.loadHotels();
+          this.submitting.set(false);
+        }
       },
       error: err => {
         this.toast.error(err.error?.message || 'Error al guardar');
         this.submitting.set(false);
       }
     });
+  }
+
+  onCoverImageSelected(file: File) {
+    this.coverImageFile.set(file);
+    // Preview local antes de subir
+    const reader = new FileReader();
+    reader.onload = (e) => this.coverImagePreview.set(e.target?.result as string);
+    reader.readAsDataURL(file);
   }
 }

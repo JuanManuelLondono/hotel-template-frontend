@@ -82,6 +82,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/reviews/reviews.component')
             .then(m => m.ReviewsComponent)
+      },
+      {
+        path: 'gallery',
+        loadComponent: () =>
+          import('./features/admin/gallery/gallery.component')
+            .then(m => m.GalleryAdminComponent)
       }
     ]
   },

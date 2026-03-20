@@ -82,6 +82,12 @@ import { AuthService } from '../../../core/services/auth.service';
                                 hover:bg-gray-50 transition-colors">
                         Panel Admin
                       </a>
+                      <a routerLink="/admin/gallery"
+                        (click)="menuOpen.set(false)"
+                        class="block px-4 py-2 text-sm text-gray-700
+                                hover:bg-gray-50 transition-colors">
+                        Galería
+                      </a>
                     }
 
                     <a routerLink="/guest/reservations"
@@ -153,7 +159,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class NavbarComponent {
   auth = inject(AuthService);
-  menuOpen  = signal(false);
+  menuOpen = signal(false);
   mobileOpen = signal(false);
 
   logout() {
