@@ -1,12 +1,22 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, ToastComponent],
+  template: `
+    <div class="min-h-screen flex flex-col">
+      <app-navbar />
+      <main class="flex-1">
+        <router-outlet />
+      </main>
+      <app-footer />
+      <app-toast />
+    </div>
+  `
 })
-export class App {
-  protected readonly title = signal('hotel-frontend');
-}
+export class App {}
