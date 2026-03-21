@@ -9,9 +9,9 @@ import { CurrencyCopPipe } from '../../../shared/pipes/currency-cop.pipe';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, LoadingSpinnerComponent, CurrencyCopPipe],
+  imports: [CommonModule, RouterLink],
   template: `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
 
       <!-- Header -->
       <div class="mb-8">

@@ -13,7 +13,7 @@ import { HotelSummary } from '../../../core/models/hotel.model';
   standalone: true,
   imports: [CommonModule, LoadingSpinnerComponent, CurrencyCopPipe],
   template: `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
 
       <div class="mb-8">
         <h1 class="font-serif text-3xl font-bold text-gray-900">Reservas</h1>

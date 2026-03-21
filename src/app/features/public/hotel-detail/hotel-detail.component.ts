@@ -24,7 +24,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
       <app-loading-spinner [fullScreen]="true" text="Cargando hotel..." />
     } @else if (!hotel()) {
       <div class="text-center py-24">
-        <span class="text-5xl">😕</span>
+        <span class="text-5xl"></span>
         <p class="text-gray-500 mt-4 text-lg">Hotel no encontrado</p>
         <a routerLink="/hotels"
            class="mt-4 inline-block text-primary-600 hover:text-primary-700 font-medium">
@@ -53,7 +53,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
             </h1>
             <div class="flex items-center gap-4 mt-2">
               <p class="text-white/80 text-sm">
-                📍 {{ hotel()!.city }}, {{ hotel()!.country }}
+                {{ hotel()!.city }}, {{ hotel()!.country }}
               </p>
               <div class="flex items-center gap-1">
                 <span class="text-amber-400">★</span>
@@ -88,7 +88,12 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
                 @if (hotel()!.checkInTime) {
                   <div class="bg-gray-50 rounded-xl p-4 text-center">
-                    <p class="text-2xl">🕐</p>
+                    <div class="flex justify-center text-2xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" 
+                          width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M17 3.34A10 10 0 1 1 2 12l.005-.324A10 10 0 0 1 17 3.34M12 6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h3.5a1 1 0 0 0 0-2H13V7a1 1 0 0 0-.883-.993z"/>
+                      </svg>
+                    </div>
                     <p class="text-xs text-gray-500 mt-1">Check-in</p>
                     <p class="font-semibold text-sm text-gray-800">
                       {{ hotel()!.checkInTime }}
@@ -97,7 +102,12 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
                 }
                 @if (hotel()!.checkOutTime) {
                   <div class="bg-gray-50 rounded-xl p-4 text-center">
-                    <p class="text-2xl">🕐</p>
+                    <div class="flex justify-center text-2xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" 
+                          width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M17 3.34A10 10 0 1 1 2 12l.005-.324A10 10 0 0 1 17 3.34m-5.401 9.576l.052.021l.08.026l.08.019l.072.011L12 13l.076-.003l.135-.02l.082-.02l.103-.039l.073-.035l.078-.046l.06-.042l.08-.069l.083-.088l.062-.083l2-3a1 1 0 1 0-1.664-1.11L13 8.696V7a1 1 0 0 0-.883-.993L12 6a1 1 0 0 0-1 1v5.026l.009.105l.02.107l.04.129l.048.102l.046.078l.042.06l.069.08l.088.083l.083.062l.09.053z"/>
+                      </svg>
+                    </div>
                     <p class="text-xs text-gray-500 mt-1">Check-out</p>
                     <p class="font-semibold text-sm text-gray-800">
                       {{ hotel()!.checkOutTime }}
@@ -106,7 +116,13 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
                 }
                 @if (hotel()!.phone) {
                   <div class="bg-gray-50 rounded-xl p-4 text-center">
-                    <p class="text-2xl">📞</p>
+                    <div class="flex justify-center text-2xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" 
+                          width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25c1.12.37 2.32.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z"/>
+                    </svg>
+
+                    </div>
                     <p class="text-xs text-gray-500 mt-1">Teléfono</p>
                     <p class="font-semibold text-sm text-gray-800">
                       {{ hotel()!.phone }}
@@ -115,7 +131,14 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
                 }
                 @if (hotel()!.address) {
                   <div class="bg-gray-50 rounded-xl p-4 text-center">
-                    <p class="text-2xl">📍</p>
+                    <div class= "flex justify-center text-2xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" 
+                          width="24" height="24" viewBox="0 0 24 24">
+                          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/>
+                          <path d="M12.783 21.326a2 2 0 0 1-2.196-.426l-4.244-4.243A8 8 0 1 1 20 11.037"/>
+                          <path d="M21.121 20.121a3 3 0 1 0-4.242 0Q17.506 20.749 19 22q1.577-1.335 2.121-1.879M19 18v.01"/></g>
+                      </svg>
+                    </div>
                     <p class="text-xs text-gray-500 mt-1">Dirección</p>
                     <p class="font-semibold text-sm text-gray-800 truncate">
                       {{ hotel()!.address }}
@@ -174,7 +197,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
                             </p>
 
                             <!-- Amenities -->
-                            @if (room.amenities?.length) {
+                            @if (room.amenities.length) {
                               <div class="flex flex-wrap gap-2 mt-3">
                                 @for (amenity of room.amenities.slice(0, 4);
                                       track amenity.id) {
@@ -437,12 +460,22 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
                   <h3 class="font-semibold text-gray-900 mb-3">Contacto</h3>
                   @if (hotel()!.phone) {
                     <p class="text-sm text-gray-600 flex items-center gap-2 mb-2">
-                      <span>📞</span> {{ hotel()!.phone }}
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25c1.12.37 2.32.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z"/>
+                          </svg>
+                        </span> {{ hotel()!.phone }}
                     </p>
                   }
                   @if (hotel()!.email) {
                     <p class="text-sm text-gray-600 flex items-center gap-2">
-                      <span>📧</span> {{ hotel()!.email }}
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/>
+                          </svg>
+                        </span> {{ hotel()!.email }}
                     </p>
                   }
                 </div>

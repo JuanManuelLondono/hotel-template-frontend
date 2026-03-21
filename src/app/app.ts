@@ -9,14 +9,14 @@ import { ToastComponent } from './shared/components/toast/toast.component';
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent, ToastComponent],
   template: `
-    <div class="min-h-screen flex flex-col">
-      <app-navbar />
-      <main class="flex-1">
-        <router-outlet />
-      </main>
-      <app-footer />
-      <app-toast />
-    </div>
-  `
+  <div class="min-h-screen flex flex-col">
+    <app-navbar />
+    <main class="flex-1 flex flex-col pt-16">
+      <router-outlet />
+    </main>
+    <app-footer />
+    <app-toast />
+  </div>
+`
 })
-export class App {}
+export class App { }

@@ -15,7 +15,7 @@ import { ViewChild } from '@angular/core';
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule, LoadingSpinnerComponent, ImageUploadComponent],
   template: `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
 
       <!-- Header -->
       <div class="flex justify-between items-center mb-8">

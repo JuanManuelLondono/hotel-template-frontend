@@ -6,62 +6,98 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   template: `
-    <footer class="bg-secondary-900 text-white mt-auto">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer class="bg-primary text-white">
+      <div class="max-w-7xl mx-auto px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 
-          <!-- Logo y descripción -->
-          <div>
-            <div class="flex items-center gap-2 mb-4">
-              <span class="text-2xl">🏨</span>
-              <span class="font-serif text-xl font-bold text-white">
-                HotelTemplate
-              </span>
-            </div>
-            <p class="text-secondary-300 text-sm leading-relaxed">
-              Tu destino de lujo y confort. Reserva tu estadía perfecta con nosotros.
+          <!-- Brand -->
+          <div class="md:col-span-1">
+            <p class="font-headline text-xl font-bold tracking-tighter mb-6 uppercase
+                      tracking-widest">
+              HotelTemplate
+            </p>
+            <p class="font-body text-xs text-white/50 leading-loose mb-6">
+              Redefiniendo la hospitalidad a través de experiencias únicas
+              y servicio de clase mundial.
             </p>
           </div>
 
-          <!-- Links -->
+          <!-- Navegación -->
           <div>
-            <h3 class="font-semibold text-white mb-4">Navegación</h3>
-            <ul class="flex flex-col gap-2">
+            <h4 class="font-body text-xs uppercase tracking-widest font-bold
+                       text-white mb-6">
+              Navegación
+            </h4>
+            <ul class="flex flex-col gap-4">
+              @for (link of links; track link.label) {
+                <li>
+                  <a [routerLink]="link.path"
+                     class="font-body text-xs uppercase tracking-widest text-white/50
+                            hover:text-gold transition-colors underline-offset-4
+                            hover:underline">
+                    {{ link.label }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="font-body text-xs uppercase tracking-widest font-bold
+                       text-white mb-6">
+              Legal
+            </h4>
+            <ul class="flex flex-col gap-4">
               <li>
-                <a routerLink="/"
-                   class="text-secondary-300 hover:text-white text-sm transition-colors">
-                  Inicio
+                <a href="#"
+                   class="font-body text-xs uppercase tracking-widest text-white/50
+                          hover:text-gold transition-colors">
+                  Política de Privacidad
                 </a>
               </li>
               <li>
-                <a routerLink="/hotels"
-                   class="text-secondary-300 hover:text-white text-sm transition-colors">
-                  Hoteles
-                </a>
-              </li>
-              <li>
-                <a routerLink="/auth/login"
-                   class="text-secondary-300 hover:text-white text-sm transition-colors">
-                  Iniciar Sesión
+                <a href="#"
+                   class="font-body text-xs uppercase tracking-widest text-white/50
+                          hover:text-gold transition-colors">
+                  Términos de Servicio
                 </a>
               </li>
             </ul>
           </div>
 
-          <!-- Contacto -->
+          <!-- Newsletter -->
           <div>
-            <h3 class="font-semibold text-white mb-4">Contacto</h3>
-            <ul class="flex flex-col gap-2 text-secondary-300 text-sm">
-              <li>📧 contacto&#64;hoteltemplate.com</li>
-              <li>📞 +57 1 234 5678</li>
-              <li>📍 Colombia</li>
-            </ul>
+            <h4 class="font-body text-xs uppercase tracking-widest font-bold
+                       text-white mb-6">
+              Contacto
+            </h4>
+            <p class="font-body text-xs text-white/50 mb-4 tracking-widest uppercase">
+              Mantente informado
+            </p>
+            <div class="flex items-center gap-2 border-b border-white/20 py-2">
+              <input
+                type="email"
+                placeholder="TU EMAIL"
+                class="bg-transparent border-none text-xs tracking-widest p-0
+                       focus:ring-0 w-full placeholder-white/30 text-white
+                       outline-none"/>
+              <button class="text-white/50 hover:text-gold transition-colors text-sm">
+                →
+              </button>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="border-t border-secondary-700 mt-8 pt-8 text-center">
-          <p class="text-secondary-400 text-sm">
+      <div class="border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-8 py-6 flex flex-col md:flex-row
+                    justify-between items-center gap-4">
+          <p class="font-body text-xs uppercase tracking-widest text-white/30">
             © {{ year }} HotelTemplate. Todos los derechos reservados.
+          </p>
+          <p class="font-body text-xs uppercase tracking-widest text-white/30">
+            Diseñado con elegancia · Colombia
           </p>
         </div>
       </div>
@@ -70,4 +106,11 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   year = new Date().getFullYear();
+
+  links = [
+    { path: '/',       label: 'Inicio' },
+    { path: '/hotels', label: 'Hoteles' },
+    { path: '/auth/login',    label: 'Iniciar Sesión' },
+    { path: '/auth/register', label: 'Registrarse' },
+  ];
 }

@@ -15,7 +15,7 @@ import { Amenity } from '../../../core/services/room-type.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, LoadingSpinnerComponent, CurrencyCopPipe],
   template: `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
       <div class="flex justify-between items-center mb-8">
         <div>

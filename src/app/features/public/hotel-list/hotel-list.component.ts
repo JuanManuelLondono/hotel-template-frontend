@@ -100,7 +100,7 @@ import { CurrencyCopPipe } from '../../../shared/pipes/currency-cop.pipe';
                   {{ hotel.name }}
                 </h3>
                 <p class="text-gray-500 text-sm mt-1">
-                  📍 {{ hotel.city }}, {{ hotel.country }}
+                  {{ hotel.city }}, {{ hotel.country }}
                 </p>
                 <div class="flex justify-between items-center mt-4">
                   <div>
